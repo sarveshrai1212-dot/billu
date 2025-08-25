@@ -1,0 +1,16 @@
+node_modules
+
+# Ignore Next.js build and cache files
+.next/
+
+# Ignore large webpack pack files
+.next/cache/webpack/client-production/0.pack
+.next/cache/webpack/server-production/0.pack
+
+# Ignore platform-specific Next.js binaries
+node_modules/@next/swc-linux-x64-gnu/next-swc.linux-x64-gnu.node
+# .gitignore
+# Environment variables
+.env
+.env.local
+.env.*.local

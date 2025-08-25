@@ -1,0 +1,15 @@
+/* Purple custom scrollbar for cart sidebar product list */
+.cart-slider-area {
+	scrollbar-width: thin;
+	scrollbar-color: #a259ff #231942;
+}
+
+.cart-slider-area::-webkit-scrollbar {
+	width: 8px;
+	background: #231942;
+}
+
+.cart-slider-area::-webkit-scrollbar-thumb {
+	background: #a259ff;
+	border-radius: 8px;
+}

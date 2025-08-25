@@ -1,0 +1,6 @@
+/* Gradient border for nav container */
+.navbar-gradient-border {
+  border: 2.5px solid transparent;
+  background: linear-gradient(#0300145e, #0300145e) padding-box, linear-gradient(90deg, #a259f7 0%, #7042f8 100%) border-box;
+  box-shadow: 0 0 16px 0 #a259f7;
+}

@@ -1,0 +1,69 @@
+
+.button_slide {
+    border: 2px solid #7042f8;
+    padding: 0.6em 2.57143em;
+    display: inline-block;
+    font-family: "Lucida Console", Monaco, monospace;
+    font-size: 20px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    color: #7042f8;
+    background: #181818;
+    width: 100%;
+    animation: leave 0.8s forwards;
+    transition: color 0.8s;
+}
+
+
+.slide_right:hover {
+    animation: hover-right 0.8s forwards;
+}
+
+.slide_left:hover {
+    animation: hover-left 0.8s forwards;
+}
+
+@keyframes hover-right {
+    from {
+        box-shadow: inset 0 0 0 0.01px #7042f8;
+    }
+    to {
+        box-shadow: inset 100vw 0 0 0.01px #fff, inset 100vw 0 0 0.01px #7042f8;
+        color: #7042f8;
+        background: linear-gradient(90deg, #fff 0%, #7042f8 100%);
+    }
+}
+
+@keyframes hover-left {
+    from {
+        box-shadow: inset 0 0 0 0.01px #7042f8;
+    }
+    to {
+        box-shadow: inset -100vw 0 0 0.01px #fff, inset -100vw 0 0 0.01px #7042f8;
+        color: #7042f8;
+        background: linear-gradient(270deg, #fff 0%, #7042f8 100%);
+    }
+}
+
+@keyframes hover {
+    from {
+        box-shadow: inset 0 0 0 0.01px #7042f8;
+    }
+    to {
+        box-shadow: inset 100vw 0 0 0.01px #fff, inset 100vw 0 0 0.01px #7042f8;
+        color: #7042f8;
+        background: linear-gradient(90deg, #fff 0%, #7042f8 100%);
+    }
+}
+
+@keyframes leave {
+    from {
+        box-shadow: inset -100vw 0 0 0.01px #fff, inset -100vw 0 0 0.01px #7042f8;
+        color: #7042f8;
+        background: linear-gradient(90deg, #fff 0%, #7042f8 100%);
+    }
+    to {
+        box-shadow: inset 0 0 0 0.01px #7042f8;
+        background: #181818;
+    }
+}

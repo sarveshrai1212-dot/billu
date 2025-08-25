@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Before After Slider</title>
+    <link rel="stylesheet" href="slider.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <div id="image-comparison-slider">
+        <img src="/static-assets/LUT.jpg" alt="before" loading="lazy">
+        <div class="img-wrapper">
+            <img src="/static-assets/LUTS.jpg" alt="after" loading="lazy">
+        </div>
+        <span class="label label-before">Before</span>
+        <span class="label label-after">After</span>
+        <div class="handle">
+            <div class="handle-line"></div>
+            <div class="handle-circle">
+                <i class="fas fa-chevron-left" style="font-size:1.05rem; margin-right:0px; vertical-align:middle;"></i>
+                <i class="fas fa-chevron-right" style="font-size:1.05rem; margin-left:0px; vertical-align:middle;"></i>
+            </div>
+            <div class="handle-line"></div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.0/dist/vanilla-tilt.min.js"></script>
+    <script src="slider.js"></script>
+</body>
+</html>
