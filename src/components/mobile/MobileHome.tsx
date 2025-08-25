@@ -37,14 +37,11 @@ const MobileHome: React.FC = () => {
 
   return (
     <>
-      {/* Mobile background and stars */}
-      <div
-        className="fixed inset-0 z-[-1] w-screen h-screen overflow-hidden"
-        style={{ minHeight: '100dvh', minWidth: '100vw' }}
-      >
-        <div className="absolute inset-0 bg-black" style={{ zIndex: 0 }} />
-        <div className="absolute inset-0 overflow-hidden" style={{ zIndex: 1 }}>
-          <div className="absolute inset-0 bg-black/40" style={{ zIndex: 2 }} />
+      {/* Mobile background and stars - z-index -1, pointer-events none */}
+      <div className="fixed inset-0 w-screen h-screen overflow-hidden" style={{ minHeight: '100dvh', minWidth: '100vw', zIndex: -1, pointerEvents: 'none' }}>
+        <div className="absolute inset-0 bg-black" style={{ zIndex: -1, pointerEvents: 'none' }} />
+        <div className="absolute inset-0 overflow-hidden" style={{ zIndex: -1, pointerEvents: 'none' }}>
+          <div className="absolute inset-0 bg-black/40" style={{ zIndex: -1, pointerEvents: 'none' }} />
           <video
             className="absolute top-0 left-0"
             style={{
@@ -55,7 +52,7 @@ const MobileHome: React.FC = () => {
               objectFit: 'cover',
               objectPosition: 'center',
               opacity: 0.8,
-              zIndex: 1,
+              zIndex: -1,
               background: '#000',
               maxWidth: 'none',
               maxHeight: 'none',
@@ -70,12 +67,9 @@ const MobileHome: React.FC = () => {
             Your browser does not support the video tag.
           </video>
         </div>
-      </div>
-      <div
-        className="absolute inset-0 w-full h-full pointer-events-none"
-        style={{ zIndex: 3 }}
-      >
-        <StarsCanvas />
+        <div className="absolute inset-0 w-full h-full" style={{ zIndex: -1, pointerEvents: 'none' }}>
+          <StarsCanvas />
+        </div>
       </div>
       {/* Hero Section */}
       <motion.section 
@@ -84,7 +78,7 @@ const MobileHome: React.FC = () => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
       >
-        <div className="container relative mx-auto px-4 z-[5]">
+  <div className="container relative mx-auto px-4 z-[10]">
           <motion.div className="text-center mb-10" variants={fadeInUp} custom={1}>
             <motion.h1
               className="text-3xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white to-purple-300"
@@ -128,7 +122,7 @@ const MobileHome: React.FC = () => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
       >
-        <div className="container mx-auto px-4">
+  <div className="container mx-auto px-4 z-[10]">
           <div className="grid grid-cols-1 gap-6">
             {mainFeatures.map((feature: Feature, index: number) => (
               <motion.div key={index} variants={fadeInUp} custom={index + 1}>
@@ -149,7 +143,7 @@ const MobileHome: React.FC = () => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.1 }}
       >
-        <div className="container mx-auto px-4 relative z-10">
+  <div className="container mx-auto px-4 relative z-[10]">
           <motion.div className="flex justify-between items-center mb-8" variants={fadeInUp} custom={1}>
             <h2 className="text-2xl font-bold">Products</h2>
             <Link href="/products" className="text-brand-purple hover:underline flex items-center">
@@ -172,7 +166,7 @@ const MobileHome: React.FC = () => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
       >
-        <div className="container mx-auto px-4">
+  <div className="container mx-auto px-4 z-[10]">
           <motion.h2 className="text-2xl font-bold mb-10 text-center" variants={fadeInUp} custom={1}>
             Why Choose Us
           </motion.h2>
@@ -196,7 +190,7 @@ const MobileHome: React.FC = () => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
       >
-        <div className="container mx-auto px-4">
+  <div className="container mx-auto px-4 z-[10]">
           <motion.h2 className="text-2xl font-bold mb-10 text-center" variants={fadeInUp} custom={1}>
             Share Your Experience
           </motion.h2>
