@@ -77,25 +77,29 @@ const MobileProductDetail: React.FC<MobileProductDetailProps> = ({ product }) =>
             <h1 className="text-2xl font-bold mb-4 text-white">{product.name}</h1>
           </motion.div>
           <motion.div variants={fadeInUp}>
-            <div className="flex flex-col items-center mb-4 relative w-full max-w-xs mx-auto aspect-[4/5] bg-gradient-to-br from-purple-900/40 to-black/60 rounded-xl shadow-glow border-2 border-purple-500/30 overflow-hidden" style={{ minHeight: 300 }}>
+            <div className="flex flex-col items-center mb-4 relative w-full max-w-xs mx-auto aspect-[4/5] bg-gradient-to-br from-purple-900/40 to-black/60 rounded-xl shadow-glow border-2 border-purple-500/30 overflow-hidden" style={{ minHeight: 300, position: 'relative' }}>
               {/* Show main image or slider */}
               {!showSlider ? (
-                <Image
-                  src={product.imageUrl[0]}
-                  alt={product.name}
-                  fill
-                  className="absolute inset-0 w-full h-full object-cover rounded-xl"
-                  style={{ objectFit: 'cover', objectPosition: 'center center' }}
-                  priority
-                />
+                <div className="absolute inset-0 w-full h-full">
+                  <Image
+                    src={product.imageUrl[0]}
+                    alt={product.name}
+                    fill
+                    className="object-cover rounded-xl"
+                    style={{ objectFit: 'cover', objectPosition: 'center center' }}
+                    priority
+                  />
+                </div>
               ) : (
                 product.imageUrl.length > 1 && (
-                  <MobileBeforeAfterSlider beforeImage={product.imageUrl[0]} afterImage={product.imageUrl[1]} />
+                  <div className="absolute inset-0 w-full h-full">
+                    <MobileBeforeAfterSlider beforeImage={product.imageUrl[0]} afterImage={product.imageUrl[1]} />
+                  </div>
                 )
               )}
               {/* Left arrow to go back to main image */}
               <button
-                className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full z-10"
+                className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full z-20"
                 onClick={() => setShowSlider(false)}
                 aria-label="Back to image"
                 disabled={!showSlider}
@@ -106,7 +110,7 @@ const MobileProductDetail: React.FC<MobileProductDetailProps> = ({ product }) =>
               {/* Right arrow to show slider */}
               {product.imageUrl.length > 1 && (
                 <button
-                  className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full z-10"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full z-20"
                   onClick={() => setShowSlider(true)}
                   aria-label="Show slider"
                   disabled={showSlider}
