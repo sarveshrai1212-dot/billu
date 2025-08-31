@@ -77,25 +77,20 @@ const MobileProductDetail: React.FC<MobileProductDetailProps> = ({ product }) =>
             <h1 className="text-2xl font-bold mb-4 text-white">{product.name}</h1>
           </motion.div>
           <motion.div variants={fadeInUp}>
-            <div className="flex flex-col items-center mb-4 relative w-full max-w-xs mx-auto" style={{ minHeight: 300 }}>
+            <div className="flex flex-col items-center mb-4 relative w-full max-w-xs mx-auto aspect-[4/5] bg-gradient-to-br from-purple-900/40 to-black/60 rounded-xl shadow-glow border-2 border-purple-500/30 overflow-hidden" style={{ minHeight: 300 }}>
               {/* Show main image or slider */}
               {!showSlider ? (
                 <Image
                   src={product.imageUrl[0]}
                   alt={product.name}
-                  width={300}
-                  height={300}
-                  className="w-full h-full object-cover rounded-lg border border-white/10 mb-2"
-                  style={{ objectFit: 'cover', maxHeight: 300 }}
+                  fill
+                  className="absolute inset-0 w-full h-full object-cover rounded-xl"
+                  style={{ objectFit: 'cover', objectPosition: 'center center' }}
                   priority
                 />
               ) : (
                 product.imageUrl.length > 1 && (
-                  <>
-                    {/* Use mobile slider for mobile view */}
-                    {/* @ts-ignore */}
-                    <MobileBeforeAfterSlider beforeImage={product.imageUrl[0]} afterImage={product.imageUrl[1]} />
-                  </>
+                  <MobileBeforeAfterSlider beforeImage={product.imageUrl[0]} afterImage={product.imageUrl[1]} />
                 )
               )}
               {/* Left arrow to go back to main image */}
