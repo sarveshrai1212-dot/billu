@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import BeforeAfterSlider from "../../../components/BeforeAfterSlider.jsx";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/contexts/CartContext";
 import { Button } from "@/components/ui/button";
@@ -26,6 +27,8 @@ const staggerParent = {
 };
 
 function ProductDetailClient({ slug }) {
+  // ...existing code...
+  const [showSlider, setShowSlider] = React.useState(false);
   const router = useRouter();
   const { addToCart } = useCart();
   const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
@@ -46,6 +49,11 @@ function ProductDetailClient({ slug }) {
       </div>
     );
   }
+
+  // Safe to use productData now
+  const isInstagramExportSettings = productData.slug === "instagram-export-guide";
+  const beforeImage = "/attached_assets/Instagram_Export_settings_cover.jpg";
+  const afterImage = "/attached_assets/Instagram_Export_settings_cover (1).jpg";
 
   const handleAddToCart = () => addToCart(productData);
   const handleBuyNow = () => {
@@ -104,62 +112,101 @@ function ProductDetailClient({ slug }) {
         >
           {/* Image carousel section */}
           <motion.div className="flex-1 flex flex-col items-center justify-center" variants={fadeInUp} custom={2}>
-            <div className="relative w-full max-w-md aspect-square bg-white/5 rounded-2xl shadow-glow border border-white/10 flex items-center justify-center">
-              <AnimatePresence mode="wait">
-                <motion.img
-                  key={currentImageIndex}
-                  src={productData.imageUrl[currentImageIndex]}
-                  alt={`${productData.name} - Image ${currentImageIndex + 1}`}
-                  className="w-full h-full object-contain rounded-2xl"
-                  onDoubleClick={handleZoomToggle}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1, scale: isZoomed ? 1.8 : 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ type: "spring", stiffness: 200, damping: 25, duration: 0.3 }}
-                  style={{ cursor: isZoomed ? "zoom-out" : "zoom-in" }}
-                />
-              </AnimatePresence>
-              {/* Zoom icon */}
-              <div className="absolute top-3 right-3 bg-black/60 p-2 rounded-full z-10">
-                {isZoomed ? (
-                  <ZoomOut className="w-5 h-5 text-white" />
-                ) : (
-                  <ZoomIn className="w-5 h-5 text-white" />
-                )}
-              </div>
-              {/* Carousel arrows */}
-              {productData.imageUrl.length > 1 && (
+            {isInstagramExportSettings ? (
+              <div className="relative w-full max-w-xl h-[450px] flex items-center justify-center">
+                {/* Show first image by default */}
                 <>
+                  {!showSlider ? (
+                    <img
+                      src={beforeImage}
+                      alt="Instagram Export Settings Cover"
+                      className="w-full h-full object-cover rounded-2xl"
+                      style={{ objectPosition: 'center center' }}
+                    />
+                  ) : (
+                    <BeforeAfterSlider before="/static-assets/LUT.jpg" after="/static-assets/LUTS.jpg" />
+                  )}
+                  {/* Left arrow to go back to first image */}
                   <button
                     className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full z-10"
-                    onClick={goToPreviousImage}
-                    aria-label="Previous image"
+                    onClick={() => setShowSlider(false)}
+                    aria-label="Back to image"
+                    disabled={!showSlider}
+                    style={{ opacity: showSlider ? 1 : 0.5, pointerEvents: showSlider ? 'auto' : 'none' }}
                   >
                     <ChevronLeft className="w-6 h-6" />
                   </button>
+                  {/* Right arrow to show slider */}
                   <button
                     className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full z-10"
-                    onClick={goToNextImage}
-                    aria-label="Next image"
+                    onClick={() => setShowSlider(true)}
+                    aria-label="Show slider"
+                    disabled={showSlider}
+                    style={{ opacity: !showSlider ? 1 : 0.5, pointerEvents: !showSlider ? 'auto' : 'none' }}
                   >
                     <ChevronRight className="w-6 h-6" />
                   </button>
                 </>
-              )}
-              {/* Dot indicators */}
-              {productData.imageUrl.length > 1 && (
-                <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-2 z-10">
-                  {productData.imageUrl.map((_, index) => (
-                    <button
-                      key={index}
-                      className={`w-2 h-2 rounded-full transition-colors duration-200 ${index === currentImageIndex ? 'bg-white' : 'bg-white/50 hover:bg-white/70'}`}
-                      onClick={() => setCurrentImageIndex(index)}
-                      aria-label={`Go to image ${index + 1}`}
-                    />
-                  ))}
+              </div>
+            ) : (
+              // ...existing code for other products...
+              <div className="relative w-full max-w-md aspect-square bg-white/5 rounded-2xl shadow-glow border border-white/10 flex items-center justify-center">
+                <AnimatePresence mode="wait">
+                  <motion.img
+                    key={currentImageIndex}
+                    src={productData.imageUrl[currentImageIndex]}
+                    alt={`${productData.name} - Image ${currentImageIndex + 1}`}
+                    className="w-full h-full object-contain rounded-2xl"
+                    onDoubleClick={handleZoomToggle}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1, scale: isZoomed ? 1.8 : 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ type: "spring", stiffness: 200, damping: 25, duration: 0.3 }}
+                    style={{ cursor: isZoomed ? "zoom-out" : "zoom-in" }}
+                  />
+                </AnimatePresence>
+                {/* Zoom icon */}
+                <div className="absolute top-3 right-3 bg-black/60 p-2 rounded-full z-10">
+                  {isZoomed ? (
+                    <ZoomOut className="w-5 h-5 text-white" />
+                  ) : (
+                    <ZoomIn className="w-5 h-5 text-white" />
+                  )}
                 </div>
-              )}
-            </div>
+                {/* Carousel arrows */}
+                {productData.imageUrl.length > 1 && (
+                  <>
+                    <button
+                      className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full z-10"
+                      onClick={goToPreviousImage}
+                      aria-label="Previous image"
+                    >
+                      <ChevronLeft className="w-6 h-6" />
+                    </button>
+                    <button
+                      className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full z-10"
+                      onClick={goToNextImage}
+                      aria-label="Next image"
+                    >
+                      <ChevronRight className="w-6 h-6" />
+                    </button>
+                  </>
+                )}
+                {/* Dot indicators */}
+                {productData.imageUrl.length > 1 && (
+                  <div className="absolute bottom-3 left-0 right-0 flex justify-center gap-2 z-10">
+                    {productData.imageUrl.map((_, index) => (
+                      <button
+                        key={index}
+                        className={`w-2 h-2 rounded-full transition-colors duration-200 ${index === currentImageIndex ? 'bg-white' : 'bg-white/50 hover:bg-white/70'}`}
+                        onClick={() => setCurrentImageIndex(index)}
+                        aria-label={`Go to image ${index + 1}`}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
           </motion.div>
           {/* Details card section */}
           <motion.div 

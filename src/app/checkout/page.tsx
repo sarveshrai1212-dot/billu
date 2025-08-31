@@ -197,11 +197,11 @@ const Checkout: React.FC = () => {
             {cart.length === 0 ? null : (
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div className="md:col-span-2">
-                  <div className="bg-purple-900/20 backdrop-blur-md p-6 rounded-lg shadow-glow border border-white/10 sticky top-20">
+                  <div className="bg-purple-900/20 p-6 rounded-lg shadow-glow border border-white/10 sticky top-20">
                     <h2 className="text-xl font-bold mb-4">Order Summary</h2>
                     <div className="border-b border-white/10 pb-4 mb-4">
                       {cart.map((item) => (
-                        <div key={item.product.id} className="flex mb-4 p-2 rounded-lg bg-purple-950/40 backdrop-blur-sm border border-white/5">
+                        <div key={item.product.id} className="flex mb-4 p-2 rounded-lg bg-purple-950/40 border border-white/5">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img 
                             src={Array.isArray(item.product.imageUrl) ? item.product.imageUrl[0] : item.product.imageUrl} 
@@ -221,10 +221,10 @@ const Checkout: React.FC = () => {
                         </div>
                       ))}
                     </div>
-                    <div className="space-y-2 text-sm mb-4 p-3 rounded-lg bg-purple-950/40 backdrop-blur-sm border border-white/5">
+                    <div className="space-y-2 text-sm mb-4 p-3 rounded-lg bg-purple-950/40 border border-white/5">
                       <div className="flex justify-between">
-                        <span>Subtotal</span>
-                        <span className="font-medium">${formattedTotalUSD} USD</span>
+                        <span className="text-white font-medium">Subtotal</span>
+                        <span className="text-white font-medium">${formattedTotalUSD} USD</span>
                       </div>
                       {discountSuccess && (
                         <div className="flex justify-between text-green-400">
@@ -233,13 +233,13 @@ const Checkout: React.FC = () => {
                         </div>
                       )}
                       <div className="flex justify-between">
-                        <span>Taxes</span>
-                        <span>Calculated at next step</span>
+                        <span className="text-white font-medium">Taxes</span>
+                        <span className="text-white font-medium">Calculated at next step</span>
                       </div>
                     </div>
-                    <div className="flex justify-between font-bold text-lg p-3 rounded-lg bg-purple-950/40 backdrop-blur-sm border border-white/5 mt-4">
-                      <span>Total</span>
-                      <span className="text-white">${discountSuccess ? formattedFinalTotalUSD : formattedTotalUSD} USD</span>
+                    <div className="flex justify-between font-bold text-lg p-3 rounded-lg bg-purple-950/40 border border-white/5 mt-4">
+                      <span className="text-white font-bold">Total</span>
+                      <span className="text-white font-bold tracking-wide">${discountSuccess ? formattedFinalTotalUSD : formattedTotalUSD} USD</span>
                     </div>
                     <div className="mt-4 text-xs text-gray-400">
                       By confirming your payment, you allow VroomVisionX LLC to charge you for this payment and future payments in accordance with their terms.
@@ -247,7 +247,7 @@ const Checkout: React.FC = () => {
                   </div>
                 </div>
                 <div className="md:col-span-1 space-y-6">
-                  <div className="bg-purple-900/20 backdrop-blur-md p-6 rounded-lg shadow-glow border border-white/10">
+                  <div className="bg-purple-900/20 p-6 rounded-lg shadow-glow border border-white/10">
                     <h2 className="text-xl font-bold mb-4">Contact Information</h2>
                     <div className="mb-4">
                       <Label htmlFor="checkout-email" className="block text-sm font-medium mb-1">Email</Label>

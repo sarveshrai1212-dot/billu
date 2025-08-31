@@ -32,6 +32,7 @@ const ReviewForm: React.FC = () => {
       }
       setShowModal(true);
     } catch (err) {
+  setError("Failed to send feedback."); // This line is unchanged, but we will remove the 'err' variable.
             setError("Failed to send feedback.");
     }
   };
@@ -100,7 +101,7 @@ const ReviewForm: React.FC = () => {
           <label className="block text-white mb-1">Name</label>
           <input
             type="text"
-            className="w-full p-2 rounded bg-purple-950/40 border border-white/10 text-white placeholder-gray-400 focus:border-purple-700 focus:ring-2 focus:ring-purple-700 focus:border-2"
+            className="w-full p-2 rounded bg-purple-950/40 border border-transparent text-white placeholder-gray-400 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 focus:outline-none"
             value={name}
             onChange={e => setName(e.target.value)}
             placeholder="Your Name"
@@ -111,7 +112,7 @@ const ReviewForm: React.FC = () => {
           <label className="block text-white mb-1">Email</label>
           <input
             type="email"
-            className="w-full p-2 rounded bg-purple-950/40 border border-white/10 text-white placeholder-gray-400 focus:border-purple-700 focus:ring-2 focus:ring-purple-700 focus:border-2"
+            className="w-full p-2 rounded bg-purple-950/40 border border-transparent text-white placeholder-gray-400 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 focus:outline-none"
             value={email}
             onChange={e => setEmail(e.target.value)}
             placeholder="you@email.com"
@@ -121,7 +122,7 @@ const ReviewForm: React.FC = () => {
         <div className="mb-4">
           <label className="block text-white mb-1">Your Experience</label>
           <textarea
-            className="w-full p-2 rounded bg-purple-950/40 border border-white/10 text-white placeholder-gray-400 focus:border-purple-700 focus:ring-2 focus:ring-purple-700 focus:border-2"
+            className="w-full p-2 rounded bg-purple-950/40 border border-transparent text-white placeholder-gray-400 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 focus:outline-none"
             rows={4}
             value={review}
             onChange={e => setReview(e.target.value)}

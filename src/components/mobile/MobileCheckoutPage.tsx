@@ -231,44 +231,46 @@ const MobileCheckoutPage: React.FC = () => {
           <input
             type="email"
             placeholder="your@email.com"
-            className="w-full bg-purple-950/40 backdrop-blur-md border border-white/10 rounded-md px-4 py-2 mb-4 text-white"
+            className="w-full bg-purple-950/40 backdrop-blur-md border border-white/10 rounded-md px-4 py-2 mb-4 text-white focus:border-purple-500 focus:ring-1 focus:ring-purple-500 focus:outline-none"
             value={email}
             onChange={e => setEmail(e.target.value)}
           />
           <div className="mb-4">
-            <input
-              type="text"
-              placeholder="Discount code"
-              className="flex-1 bg-purple-950/40 backdrop-blur-md border border-white/10 rounded-md px-4 py-2 text-white"
-              value={discountCode}
-              onChange={e => setDiscountCode(e.target.value)}
-            />
-            <button
-              className="ml-2 bg-purple-600/70 hover:bg-purple-600 text-white px-4 py-2 rounded-md shadow-glow border border-white/10"
-              onClick={async () => {
-                setDiscountError(null);
-                setDiscountSuccess(false);
-                setDiscountApplying(true);
-                try {
-                  if (discountCode.trim().toUpperCase() === "VISION10") {
-                    setDiscountSuccess(true);
-                    setDiscountError(null);
-                  } else {
-                    setDiscountError("Invalid or expired code");
-                    setDiscountSuccess(false);
-                  }
-                } catch {
-                  setDiscountError("Something went wrong");
+            <div className="flex gap-2 items-center">
+              <input
+                type="text"
+                placeholder="Discount code"
+                className="w-2/3 bg-purple-950/40 backdrop-blur-md border border-white/10 rounded-md px-3 py-2 text-white focus:border-purple-500 focus:ring-1 focus:ring-purple-500 focus:outline-none"
+                value={discountCode}
+                onChange={e => setDiscountCode(e.target.value)}
+              />
+              <button
+                className="w-1/3 bg-purple-600/70 hover:bg-purple-600 text-white px-2 py-2 rounded-md shadow-glow border border-white/10"
+                onClick={async () => {
+                  setDiscountError(null);
                   setDiscountSuccess(false);
-                } finally {
-                  setDiscountApplying(false);
-                }
-              }}
-              disabled={!discountCode || discountApplying}
-              type="button"
-            >
-              {discountApplying ? 'Applying...' : 'Apply'}
-            </button>
+                  setDiscountApplying(true);
+                  try {
+                    if (discountCode.trim().toUpperCase() === "VISION10") {
+                      setDiscountSuccess(true);
+                      setDiscountError(null);
+                    } else {
+                      setDiscountError("Invalid or expired code");
+                      setDiscountSuccess(false);
+                    }
+                  } catch {
+                    setDiscountError("Something went wrong");
+                    setDiscountSuccess(false);
+                  } finally {
+                    setDiscountApplying(false);
+                  }
+                }}
+                disabled={!discountCode || discountApplying}
+                type="button"
+              >
+                {discountApplying ? 'Applying...' : 'Apply'}
+              </button>
+            </div>
             {discountError && (
               <div className="text-red-400 text-xs mt-1">{discountError}</div>
             )}
