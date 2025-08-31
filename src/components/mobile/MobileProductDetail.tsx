@@ -39,16 +39,7 @@ interface MobileProductDetailProps {
 const MobileProductDetail: React.FC<MobileProductDetailProps> = ({ product }) => {
   const router = useRouter();
   const { addToCart } = useCart();
-  const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
-
-  const goToPreviousImage = () => {
-    if (!product?.imageUrl?.length) return;
-    setCurrentImageIndex(prev => prev === 0 ? product.imageUrl.length - 1 : prev - 1);
-  };
-  const goToNextImage = () => {
-    if (!product?.imageUrl?.length) return;
-    setCurrentImageIndex(prev => prev === product.imageUrl.length - 1 ? 0 : prev + 1);
-  };
+  const [showSlider, setShowSlider] = React.useState(false);
   const handleBuyNow = () => {
     addToCart(product);
     router.push("/checkout");
@@ -85,22 +76,48 @@ const MobileProductDetail: React.FC<MobileProductDetailProps> = ({ product }) =>
             <h1 className="text-2xl font-bold mb-4 text-white">{product.name}</h1>
           </motion.div>
           <motion.div variants={fadeInUp}>
-            <div className="flex flex-col items-center mb-4">
-              <Image
-                src={Array.isArray(product.imageUrl) ? product.imageUrl[currentImageIndex] : product.imageUrl}
-                alt={product.name}
-                width={300}
-                height={300}
-                className="w-full max-w-xs rounded-lg border border-white/10 mb-2"
-                style={{ objectFit: 'cover', maxHeight: 300 }}
-                priority
-              />
-              {Array.isArray(product.imageUrl) && product.imageUrl.length > 1 && (
-                <div className="flex gap-2 mt-2">
-                  <button onClick={goToPreviousImage} className="text-white/60 hover:text-white">&#8592;</button>
-                  <span className="text-white/80 text-xs">{currentImageIndex + 1} / {product.imageUrl.length}</span>
-                  <button onClick={goToNextImage} className="text-white/60 hover:text-white">&#8594;</button>
-                </div>
+            <div className="flex flex-col items-center mb-4 relative w-full max-w-xs mx-auto" style={{ minHeight: 300 }}>
+              {/* Show main image or slider */}
+              {!showSlider ? (
+                <Image
+                  src={product.imageUrl[0]}
+                  alt={product.name}
+                  width={300}
+                  height={300}
+                  className="w-full h-full object-cover rounded-lg border border-white/10 mb-2"
+                  style={{ objectFit: 'cover', maxHeight: 300 }}
+                  priority
+                />
+              ) : (
+                product.imageUrl.length > 1 && (
+                  <>
+                    {/* Use mobile slider for mobile view */}
+                    {/* @ts-ignore */}
+                    <MobileBeforeAfterSlider beforeImage={product.imageUrl[0]} afterImage={product.imageUrl[1]} />
+                  </>
+                )
+              )}
+              {/* Left arrow to go back to main image */}
+              <button
+                className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full z-10"
+                onClick={() => setShowSlider(false)}
+                aria-label="Back to image"
+                disabled={!showSlider}
+                style={{ opacity: showSlider ? 1 : 0.5, pointerEvents: showSlider ? 'auto' : 'none' }}
+              >
+                &#8592;
+              </button>
+              {/* Right arrow to show slider */}
+              {product.imageUrl.length > 1 && (
+                <button
+                  className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-black/80 text-white p-2 rounded-full z-10"
+                  onClick={() => setShowSlider(true)}
+                  aria-label="Show slider"
+                  disabled={showSlider}
+                  style={{ opacity: !showSlider ? 1 : 0.5, pointerEvents: !showSlider ? 'auto' : 'none' }}
+                >
+                  &#8594;
+                </button>
               )}
             </div>
           </motion.div>
