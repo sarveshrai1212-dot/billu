@@ -1,3 +1,4 @@
+import MobileBeforeAfterSlider from "@/components/mobile/MobileBeforeAfterSlider";
 "use client";
 
 import React from "react";
